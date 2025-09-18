@@ -1,1 +1,24 @@
-import array# Создаем массив с новыми значениямиnumbers_array = array.array('i', [5, 15, 25, 35, 45])numbers_array.append(55)  # Добавляем элемент в конецnumbers_array.append(65)  # Добавляем ещё один элементprint("Массив:", numbers_array)# Список:# Создаем список с разнородными даннымиdata_list = ["один", 2, 3.5, False, {"ключ": "значение"}]data_list.append("добавленный элемент")  # Добавляем элемент в конецdata_list.insert(3, "новая вставка")     # Вставляем элемент на позицию 3data_list.remove(False)                 # Удаляем элемент со значением Falseprint("Список:", data_list)# Стек:# Создаем стек и добавляем элементыstack_collection = []stack_collection.append("начало")stack_collection.append("середина")stack_collection.append("конец")print("Стек:", stack_collection)
+# РњР°СЃСЃРёРІ:
+import array
+
+# РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ СЃ РЅРѕРІС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё
+numbers_array = array.array('i', [5, 15, 25, 35, 45])
+numbers_array.append(55)  # Р”РѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС†
+numbers_array.append(65)  # Р”РѕР±Р°РІР»СЏРµРј РµС‰С‘ РѕРґРёРЅ СЌР»РµРјРµРЅС‚
+print("РњР°СЃСЃРёРІ:", numbers_array)
+
+# РЎРїРёСЃРѕРє:
+# РЎРѕР·РґР°РµРј СЃРїРёСЃРѕРє СЃ СЂР°Р·РЅРѕСЂРѕРґРЅС‹РјРё РґР°РЅРЅС‹РјРё
+data_list = ["РѕРґРёРЅ", 2, 3.5, False, {"РєР»СЋС‡": "Р·РЅР°С‡РµРЅРёРµ"}]
+data_list.append("РґРѕР±Р°РІР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚")  # Р”РѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС†
+data_list.insert(3, "РЅРѕРІР°СЏ РІСЃС‚Р°РІРєР°")     # Р’СЃС‚Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚ РЅР° РїРѕР·РёС†РёСЋ 3
+data_list.remove(False)                 # РЈРґР°Р»СЏРµРј СЌР»РµРјРµРЅС‚ СЃРѕ Р·РЅР°С‡РµРЅРёРµРј False
+print("РЎРїРёСЃРѕРє:", data_list)
+
+# РЎС‚РµРє:
+# РЎРѕР·РґР°РµРј СЃС‚РµРє Рё РґРѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚С‹
+stack_collection = []
+stack_collection.append("РЅР°С‡Р°Р»Рѕ")
+stack_collection.append("СЃРµСЂРµРґРёРЅР°")
+stack_collection.append("РєРѕРЅРµС†")
+print("РЎС‚РµРє:", stack_collection)
