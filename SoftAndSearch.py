@@ -1,164 +1,151 @@
 === InsertionSorter (из Python InsertionSort) ===
-Исходные данные: [15, 8, 42, 4, 23, 16]
-Отсортированные данные: [4, 8, 15, 16, 23, 42]
+Исходные данные: [33, 17, 68, 9, 45, 28]
+Отсортированные данные: [9, 17, 28, 33, 45, 68]
 
 === QuickSorter (из Python QuickSort) ===
-Исходные данные: [24, 15, 38, 2, 19, 41, 8]
-Отсортированные данные: [2, 8, 15, 19, 24, 38, 41]
+Исходные данные: [42, 23, 71, 5, 36, 89, 14]
+Отсортированные данные: [5, 14, 23, 36, 42, 71, 89]
 
 === BinaryFinder (из Python BinarySearch) ===
-Исходные данные: [3, 7, 14, 21, 29, 33, 42, 55, 67, 78]
+Исходные данные: [5, 12, 23, 37, 48, 55, 69, 81, 94, 107]
 
-Результат поиска: элемент 29 найден на позиции: 4
-Результат поиска: элемент 7 найден на позиции: 1
-Результат поиска: элемент 100 не найден
-Результат поиска: элемент 42 найден на позиции: 6
+Результат поиска: элемент 48 найден на позиции: 4
+Результат поиска: элемент 12 найден на позиции: 1
+Результат поиска: элемент 150 не найден
+Результат поиска: элемент 69 найден на позиции: 6
 
-public class AllPythonToJava {
+# =========================================
+# 1. InsertionSorter (из оригинального InsertionSort)
+class InsertionSorter:
+    @staticmethod
+    def arrange(arr):
+        """
+        Сортировка вставками
+        Сложность: O(n²) в худшем случае, O(n) в лучшем случае
+        """
+        for i in range(1, len(arr)):
+            current = arr[i]
+            j = i - 1
 
-    // === 1. InsertionSorter (из Python InsertionSort) ===
-    public static class InsertionSorter {
-        public static void arrange(int[] nums) {
-            for (int i = 1; i < nums.length; i++) {
-                int current = nums[i];
-                int prev = i - 1;
+            while j >= 0 and arr[j] > current:
+                arr[j + 1] = arr[j]
+                j -= 1
+            arr[j + 1] = current
 
-                while (prev >= 0 && nums[prev] > current) {
-                    nums[prev + 1] = nums[prev];
-                    prev = prev - 1;
-                }
-                nums[prev + 1] = current;
-            }
-        }
+    @staticmethod
+    def _print_array(arr):
+        return "[" + ", ".join(map(str, arr)) + "]"
 
-        public static void displayArray(int[] nums) {
-            System.out.print("[");
-            for (int i = 0; i < nums.length; i++) {
-                System.out.print(nums[i]);
-                if (i < nums.length - 1) System.out.print(", ");
-            }
-            System.out.println("]");
-        }
+    @staticmethod
+    def main():
+        test_array = [33, 17, 68, 9, 45, 28]
+        print("Исходные данные:", InsertionSorter._print_array(test_array))
+        InsertionSorter.arrange(test_array)
+        print("Отсортированные данные:", InsertionSorter._print_array(test_array))
+        print()
 
-        public static void main(String[] args) {
-            int[] testData = {15, 8, 42, 4, 23, 16};
-            System.out.print("Исходные данные: ");
-            displayArray(testData);
-            arrange(testData);
-            System.out.print("Отсортированные данные: ");
-            displayArray(testData);
-            System.out.println();
-        }
-    }
 
-    // === 2. QuickSorter (из Python QuickSort) ===
-    public static class QuickSorter {
-        public static void processSort(int[] nums) {
-            quickSort(nums, 0, nums.length - 1);
-        }
+# =========================================
+# 2. QuickSorter (из оригинального QuickSort)
+class QuickSorter:
+    @staticmethod
+    def process_sort(arr):
+        """
+        Быстрая сортировка
+        Сложность: O(n log n) в среднем, O(n²) в худшем случае
+        """
+        QuickSorter._quick_sort(arr, 0, len(arr) - 1)
 
-        private static void quickSort(int[] nums, int low, int high) {
-            if (low < high) {
-                int pivotIndex = partition(nums, low, high);
-                quickSort(nums, low, pivotIndex - 1);
-                quickSort(nums, pivotIndex + 1, high);
-            }
-        }
+    @staticmethod
+    def _quick_sort(arr, low, high):
+        if low < high:
+            pi = QuickSorter._partition(arr, low, high)
+            QuickSorter._quick_sort(arr, low, pi - 1)
+            QuickSorter._quick_sort(arr, pi + 1, high)
 
-        private static int partition(int[] nums, int low, int high) {
-            int pivot = nums[high];
-            int i = low - 1;
+    @staticmethod
+    def _partition(arr, low, high):
+        pivot = arr[high]
+        i = low - 1
 
-            for (int j = low; j < high; j++) {
-                if (nums[j] < pivot) {
-                    i++;
-                    swap(nums, i, j);
-                }
-            }
-            swap(nums, i + 1, high);
-            return i + 1;
-        }
+        for j in range(low, high):
+            if arr[j] < pivot:
+                i += 1
+                QuickSorter._swap(arr, i, j)
 
-        private static void swap(int[] nums, int i, int j) {
-            int temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-        }
+        QuickSorter._swap(arr, i + 1, high)
+        return i + 1
 
-        public static void displayArray(int[] nums) {
-            System.out.print("[");
-            for (int i = 0; i < nums.length; i++) {
-                System.out.print(nums[i]);
-                if (i < nums.length - 1) System.out.print(", ");
-            }
-            System.out.println("]");
-        }
+    @staticmethod
+    def _swap(arr, i, j):
+        arr[i], arr[j] = arr[j], arr[i]
 
-        public static void main(String[] args) {
-            int[] testData = {24, 15, 38, 2, 19, 41, 8};
-            System.out.print("Исходные данные: ");
-            displayArray(testData);
-            processSort(testData);
-            System.out.print("Отсортированные данные: ");
-            displayArray(testData);
-            System.out.println();
-        }
-    }
+    @staticmethod
+    def _print_array(arr):
+        return "[" + ", ".join(map(str, arr)) + "]"
 
-    // === 3. BinaryFinder (из Python BinarySearch) ===
-    public static class BinaryFinder {
-        public static int locate(int[] nums, int target) {
-            int start = 0;
-            int end = nums.length - 1;
+    @staticmethod
+    def main():
+        test_array = [42, 23, 71, 5, 36, 89, 14]
+        print("Исходные данные:", QuickSorter._print_array(test_array))
+        QuickSorter.process_sort(test_array)
+        print("Отсортированные данные:", QuickSorter._print_array(test_array))
+        print()
 
-            while (start <= end) {
-                int mid = start + (end - start) / 2;
 
-                if (nums[mid] == target) return mid;
-                if (nums[mid] < target) start = mid + 1;
-                else end = mid - 1;
-            }
-            return -1;
-        }
+# =========================================
+# 3. BinaryFinder (из оригинального BinarySearch)
+class BinaryFinder:
+    @staticmethod
+    def locate(arr, target):
+        """
+        Бинарный поиск
+        Сложность: O(log n)
+        Требует отсортированный массив
+        """
+        left = 0
+        right = len(arr) - 1
 
-        public static void displayArray(int[] nums) {
-            System.out.print("[");
-            for (int i = 0; i < nums.length; i++) {
-                System.out.print(nums[i]);
-                if (i < nums.length - 1) System.out.print(", ");
-            }
-            System.out.println("]");
-        }
+        while left <= right:
+            mid = left + (right - left) // 2
 
-        public static void main(String[] args) {
-            int[] testData = {3, 7, 14, 21, 29, 33, 42, 55, 67, 78};
-            int[] targets = {29, 7, 100, 42};
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
 
-            System.out.print("Исходные данные: ");
-            displayArray(testData);
-            System.out.println();
+    @staticmethod
+    def _print_array(arr):
+        return "[" + ", ".join(map(str, arr)) + "]"
 
-            for (int target : targets) {
-                int result = locate(testData, target);
-                if (result != -1) {
-                    System.out.println("Результат поиска: элемент " + target + " найден на позиции: " + result);
-                } else {
-                    System.out.println("Результат поиска: элемент " + target + " не найден");
-                }
-            }
-            System.out.println();
-        }
-    }
+    @staticmethod
+    def main():
+        test_array = [5, 12, 23, 37, 48, 55, 69, 81, 94, 107]
+        targets = [48, 12, 150, 69]
 
-    // === Main для запуска всех классов ===
-    public static void main(String[] args) {
-        System.out.println("=== InsertionSorter (из Python InsertionSort) ===");
-        InsertionSorter.main(args);
+        print("Исходные данные:", BinaryFinder._print_array(test_array))
+        print()
 
-        System.out.println("=== QuickSorter (из Python QuickSort) ===");
-        QuickSorter.main(args);
+        for target in targets:
+            result = BinaryFinder.locate(test_array, target)
+            if result != -1:
+                print(f"Результат поиска: элемент {target} найден на позиции: {result}")
+            else:
+                print(f"Результат поиска: элемент {target} не найден")
+        print()
 
-        System.out.println("=== BinaryFinder (из Python BinarySearch) ===");
-        BinaryFinder.main(args);
-    }
-}
+
+# =========================================
+# Запуск всех алгоритмов
+if __name__ == "__main__":
+    print("=== InsertionSorter (из Python InsertionSort) ===")
+    InsertionSorter.main()
+
+    print("=== QuickSorter (из Python QuickSort) ===")
+    QuickSorter.main()
+
+    print("=== BinaryFinder (из Python BinarySearch) ===")
+    BinaryFinder.main()
